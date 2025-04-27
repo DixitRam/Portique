@@ -1,0 +1,23 @@
+{
+    "templates": [
+      {
+        "templateName":"Marc",
+        "thumbnailPath":"/TemplatePreview/Marc.png",
+        "templateCreator":"Marc Ruizenaar",
+        "creatorProfileUrl":"https://github.com/Marc-Ruizenaar"
+      },
+      {
+        "templateName": "Rahul",
+        "thumbnailPath": "/TemplatePreview/Rahul.png",
+        "templateCreator": "Rahul Kumar Mishra",
+        "creatorProfileUrl": "https://github.com/TheCyberAtom"
+      },
+      {
+        "templateName": "Fynn",
+        "thumbnailPath": "/TemplatePreview/Fynn.png",
+        "templateCreator": "Fynn Sackey",
+        "creatorProfileUrl": "https://github.com/InFynnity8"
+      }
+    ]
+  }
+  

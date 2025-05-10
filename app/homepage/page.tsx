@@ -25,17 +25,17 @@ const PreviewOverlay = ({ image, isOpen, onClose }: ImagePreviewProps) => {
       {(
         <div className="h-full w-full p-4 overflow-auto">
           <div className="relative w-[95%] h-[95vh]">
-            
-              <Image
-                src={image || ''}
-                alt="Preview"
-                fill
-                className="object-contain cursor-move"
-                sizes="95vw"
-                priority
-                width={400}   
-                height={300}  
-              />
+            hi
+           <div style={{ position: 'relative', width: '100%', height: '300px' }}>
+  <Image 
+    src={image || ''} 
+    alt="Preview" 
+    fill
+    className="object-contain cursor-move"
+    sizes="95vw"
+    priority
+  />
+</div>
 
 
           </div>
@@ -44,6 +44,33 @@ const PreviewOverlay = ({ image, isOpen, onClose }: ImagePreviewProps) => {
     </div>
   );
 };
+const portfolios = [
+  {
+    image: "/TemplatePreview/Marc.png",
+    name: "E-Commerce Platform",
+    description: "A feature-rich e-commerce platform with a focus on UX/UI design and seamless transactions."
+  },
+  {
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    name: "Fitness Tracker App",
+    description: "A mobile application for tracking workouts and diet plans, featuring personalized recommendations."
+  },
+  {
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    name: "Portfolio Website",
+    description: "A personal portfolio website showcasing projects, blogs, and professional experience."
+  },
+  {
+    image: "https://images.unsplash.com/photo-1470723710355-95304d8aece4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    name: "Real Estate CRM",
+    description: "A CRM tool designed for real estate businesses to manage properties and clients efficiently."
+  },
+  {
+    image: "https://images.unsplash.com/photo-1470723710355-95304d8aece4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    name: "Travel Booking Website",
+    description: "A travel booking platform that allows users to search, compare, and book flights and hotels."
+  }
+];
 
 
 export default function Homepage() {
@@ -67,10 +94,8 @@ export default function Homepage() {
               src={data.image}
               alt={`${data.name} preview`}
               fill
-              width={400 } 
-              height={ 300 }
               className="object-cover rounded-xl"
-              // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity flex items-center justify-center">
               <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all">

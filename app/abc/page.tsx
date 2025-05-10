@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
 import TemplateModal from '@/components/custom/TemplateModal';
 import TemplateCard from '@/components/custom/TemplateCard';
@@ -27,10 +26,9 @@ function App() {
         const data: TemplatesData = await response.json();
         setTemplates(data.templates);
         setLoading(false);
-      } catch (err) {
+      } catch {
         setError('Failed to load templates. Please try again later.');
         setLoading(false);
-        console.error('Error fetching templates:', err);
       }
     };
 

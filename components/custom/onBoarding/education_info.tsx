@@ -1,5 +1,4 @@
 "use client"
-import { redirect } from 'next/navigation'
 import { Form } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, useFieldArray } from "react-hook-form"
@@ -40,7 +39,7 @@ interface FormProps {
   }
 
 
-export default function EducationForm({ onComplete }: FormProps) {
+export default function EducationForm({  }: FormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<FormData>({

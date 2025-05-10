@@ -51,12 +51,13 @@ export async function POST(req: Request) {
     }
     
     return NextResponse.json({ profile });
-  } catch (error: any) {
-    console.error('Server error:', error); // Debug log
+  } catch (e) {
+    const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred';
+
     return NextResponse.json(
       { 
         error: 'Internal Server Error',
-        message: error.message 
+        message: errorMessage 
       }, 
       { status: 500 }
     );

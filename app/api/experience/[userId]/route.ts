@@ -4,11 +4,26 @@ import connectDB from '@/lib/mongodb';
 import { Experience } from '@/lib/models/experience';
 import { auth } from '@clerk/nextjs/server';
 
+// Define experience type based on the schema
+interface ExperienceType {
+  userId: string;
+  company: string;
+  role: string;
+  description: string;
+  date: string;
+}
+
+// Define RouteParams interface for consistent type usage
+interface RouteParams {
+  params: Promise<{ userId: string }>;
+}
+
 export async function GET(
   request: Request,
-  { params }: { params: { userId: string } }
+  { params }: RouteParams
 ) {
-  const { userId } = params;
+  const resolvedParams = await params;
+  const { userId } = resolvedParams;
 
   try {
     const { userId: authUserId } = await auth();
@@ -20,7 +35,7 @@ export async function GET(
     const experiences = await Experience.find({ userId });
     
     return NextResponse.json({ success: true, data: experiences });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'Error fetching experiences' },
       { status: 500 }
@@ -30,9 +45,10 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { userId: string } }
+  { params }: RouteParams
 ) {
-  const { userId } = params;
+  const resolvedParams = await params;
+  const { userId } = resolvedParams;
 
   try {
     const { userId: authUserId } = await auth();
@@ -48,14 +64,14 @@ export async function PUT(
     
     // Create new experiences
     const savedExperiences = await Experience.create(
-      experiences.map((experience: any) => ({
+      experiences.map((experience: ExperienceType) => ({
         ...experience,
         userId
       }))
     );
     
     return NextResponse.json({ success: true, data: savedExperiences });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'Error updating experiences' },
       { status: 500 }

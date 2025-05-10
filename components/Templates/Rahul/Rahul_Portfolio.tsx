@@ -7,8 +7,46 @@ import Projects from "./components/Projects/Projects_Parichay"
 import Contact from "./components/Contact/Contact"
 import "./Portfolio.css"
 
+interface Contact {
+  email: string;
+  github: string;
+  linkedin: string;
+}
 
-export default function Page({userDetails}: {userDetails: any}) {
+interface Education {
+  institution: string;
+  degree: string;
+  description?: string;
+  date: string;
+}
+
+interface Experience {
+  company: string;
+  role: string;
+  description: string;
+  date: string;
+}
+
+interface Project {
+  title: string;
+  description: string;
+  technologies: string[];
+  link: string;
+}
+
+interface UserDetails {
+  name: string;
+  location: string;
+  tagline: string;
+  cvURL: string;
+  contact: Contact;
+  skills: string[];
+  experience: Experience[];
+  education: Education[];
+  projects: Project[];
+}
+
+export default function Page({userDetails}: {userDetails: UserDetails}) {
   const { name, location, tagline, cvURL, contact, skills } = userDetails
 
   return (

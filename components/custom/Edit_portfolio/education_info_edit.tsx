@@ -99,8 +99,9 @@ export default function EditEducationForm({ userId }: { userId: string }) {
 
       toast.success('Education updated successfully!');
       
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to update education');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+      toast.error(errorMessage || 'Failed to update education');
       console.error('Error details:', error);
     } finally {
       setIsLoading(false);

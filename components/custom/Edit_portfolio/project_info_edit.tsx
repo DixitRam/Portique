@@ -18,6 +18,14 @@ import { Plus, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { useState, useEffect } from 'react'
 
+interface ProjectData {
+  name: string;
+  description: string;
+  technologies: string[] | string;
+  project_url: string;
+  thumbnail: string;
+}
+
 const projectSchema = z.object({
   projects: z.array(z.object({
     name: z.string().min(2, {
@@ -73,7 +81,7 @@ export default function EditProjectForm({ userId }: { userId: string }) {
         const data = await response.json();
 
         if (response.ok && data.success) {
-          const formattedProjects = data.data.map((project: any) => ({
+          const formattedProjects = data.data.map((project: ProjectData) => ({
             ...project,
             technologies: Array.isArray(project.technologies) 
               ? project.technologies.join(' - ') 
@@ -118,12 +126,13 @@ export default function EditProjectForm({ userId }: { userId: string }) {
       }
 
       toast.success('Projects updated successfully!');
+      toast.success('Projects updated successfully!');
       
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to update projects');
+    } catch (error: Error | unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to update projects';
+      toast.error(errorMessage);
       console.error('Error details:', error);
     } finally {
-      setIsLoading(false);
     }
   };
 

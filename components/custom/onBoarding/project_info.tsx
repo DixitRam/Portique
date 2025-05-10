@@ -87,7 +87,6 @@ export default function ProjectForm({ onComplete }: FormProps) {
         throw new Error('Failed to save projects');
       }
 
-      const result = await response.json();
       toast.success('Projects saved successfully!');
       onComplete();
     } catch (error) {

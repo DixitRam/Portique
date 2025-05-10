@@ -4,7 +4,9 @@ export function hexToHSL(hex) {
   let r = Number.parseInt(result[1], 16)
   let g = Number.parseInt(result[2], 16)
   let b = Number.parseInt(result[3], 16)
-  ;(r /= 255), (g /= 255), (b /= 255)
+  r /= 255;
+  g /= 255;
+  b /= 255;
   const max = Math.max(r, g, b),
     min = Math.min(r, g, b)
   let h,

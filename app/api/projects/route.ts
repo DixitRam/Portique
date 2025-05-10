@@ -4,6 +4,14 @@ import connectDB from '@/lib/mongodb';
 import { Project } from '@/lib/models/project';
 import { auth } from '@clerk/nextjs/server';
 
+interface ProjectInput {
+  name: string;
+  description: string;
+  technologies: string[];
+  project_url: string;
+  thumbnail: string;
+}
+
 export async function POST(req: Request) {
   try {
     const { userId } = await auth();
@@ -15,15 +23,16 @@ export async function POST(req: Request) {
     const { projects } = await req.json();
     
     const savedProjects = await Project.create(
-      projects.map((project: any) => ({
+      projects.map((project: ProjectInput) => ({
         ...project,
         userId
       }))
     );
     
     return NextResponse.json({ projects: savedProjects });
-  } catch (error) {
+  } catch (error: Error | unknown) {
     console.error('Error saving projects:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Internal Server Error';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 } 

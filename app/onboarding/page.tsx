@@ -6,7 +6,7 @@ import ProjectForm from "@/components/custom/onBoarding/project_info"
 import ExperienceForm from "@/components/custom/onBoarding/experience_info"
 import ProgressBar from "@/components/custom/ProgressBar"
 
-export default function onboarding() {
+export default function Onboarding() {
   const [activeItem, setActiveItem] = useState('ProfileForm')
   const [completedSteps, setCompletedSteps] = useState<string[]>([])
 

@@ -5,9 +5,23 @@ import connectDB from '@/lib/mongodb';
 import { Education } from '@/lib/models/education';
 import { auth } from '@clerk/nextjs/server';
 
+// Define education type based on the schema
+interface EducationType {
+  userId: string;
+  institution: string;
+  degree: string;
+  description?: string;
+  date: string;
+}
+
+// Define RouteParams interface for consistent type usage
+interface RouteParams {
+  params: Promise<{ userId: string }>;
+}
+
 export async function GET(
   request: Request,
-  { params }: { params: { userId: string } }
+  { params }: RouteParams
 ) {
   const { userId } = await params;
 
@@ -20,8 +34,9 @@ export async function GET(
     await connectDB();
     const educations = await Education.find({ userId });
     
+    
     return NextResponse.json({ success: true, data: educations });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'Error fetching education' },
       { status: 500 }
@@ -31,10 +46,11 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { userId: string } }
+  { params }: RouteParams
 ) {
   const searchParams = new URL(request.url).searchParams;
-  const { userId } = params;
+  const resolvedParams = await params;
+  const { userId } = resolvedParams;
   const queryUserId = searchParams.get('userId');
   const finalUserId = queryUserId || userId;
 
@@ -52,17 +68,17 @@ export async function PUT(
     
     // Create new education entries
     const savedEducation = await Education.create(
-      educations.map((education: any) => ({
+      educations.map((education: EducationType) => ({
         ...education,
         userId: finalUserId
       }))
     );
     
     return NextResponse.json({ success: true, data: savedEducation });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'Error updating education' },
       { status: 500 }
     );
-  }
 } 
+}

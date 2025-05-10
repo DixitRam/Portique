@@ -1,9 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import EditProfileForm from "@/components/custom/Edit_portfolio/personal_info_edit";
-import ChangeUsernameForm from "@/components/custom/Edit_portfolio/customUrlComponent";
 import EmbedCodePage from "@/components/custom/embeddedCode";
 import { useUser } from "@clerk/nextjs";
 
@@ -24,8 +21,8 @@ export default function EditPortfolio() {
         if (!response.ok) throw new Error("Failed to fetch data");
         const data = await response.json();
         setUserData(data.data.username);
-      } catch (err) {
-        
+      } catch {
+        setError(null);
       } finally {
         setLoading(false);
       }

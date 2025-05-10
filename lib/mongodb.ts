@@ -1,11 +1,14 @@
 import mongoose from 'mongoose';
 
 declare global {
+  // eslint-disable-next-line no-var
   var mongoose: {
     conn: mongoose.Mongoose | null;
     promise: Promise<mongoose.Mongoose> | null;
   };
 }
+
+export {};
 
 if (!process.env.MONGODB_URI) {
   throw new Error('ERROR OF FINDING MONGODB_URI')
@@ -41,12 +44,17 @@ async function connectDB() {
       mongoose.connection?.db?.databaseName || 'unknown database'
     );
     return cached.conn;
-  } catch (error: any) {
-    console.error('MongoDB connection error:', {
-      message: error.message,
-      code: error.code,
-      database: MONGODB_URI
-    });
+  } catch (error: unknown) {
+    // Type guard to ensure error is an Error object with optional code property
+    if (error instanceof Error) {
+      console.error('MongoDB connection error:', {
+        message: error.message,
+        code: (error as { code?: string }).code,
+        database: MONGODB_URI
+      });
+    } else {
+      console.error('Unknown MongoDB connection error:', error);
+    }
     throw error;
   }
 }

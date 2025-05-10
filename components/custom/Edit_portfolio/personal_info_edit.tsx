@@ -144,8 +144,9 @@ export default function EditProfileForm({ userId }: { userId: string }) {
 
       toast.success('Profile updated successfully!');
       
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to update profile');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+      toast.error(errorMessage );
       console.error('Error details:', error);
     } finally {
       setIsLoading(false);

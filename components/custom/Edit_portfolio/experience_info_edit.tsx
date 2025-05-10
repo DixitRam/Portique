@@ -101,8 +101,12 @@ export default function EditExperienceForm({ userId }: { userId: string }) {
 
       toast.success('Experience updated successfully!');
       
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to update experience');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message || 'Failed to update experience');
+      } else {
+        toast.error('Failed to update experience');
+      }
       console.error('Error details:', error);
     } finally {
       setIsLoading(false);

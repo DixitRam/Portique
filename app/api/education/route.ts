@@ -15,7 +15,8 @@ export async function POST(req: Request) {
     const { educations } = await req.json();
     
     const savedEducation = await Education.create(
-      educations.map((education: any) => ({
+
+      educations.map((education: Record<string, string>) => ({
         ...education,
         userId
       }))

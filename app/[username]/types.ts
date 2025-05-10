@@ -13,7 +13,7 @@ export interface UserSchema {
     github: string;
   };
   profile_summary: string;
-  experience: any[]; 
+  experience: JSON[]; 
 }
 
 export interface TemplatePageProps {

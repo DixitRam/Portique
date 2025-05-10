@@ -1,7 +1,5 @@
 'use client'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import EditProfileForm from "@/components/custom/Edit_portfolio/personal_info_edit"
 import ChangeUsernameForm from "@/components/custom/Edit_portfolio/customUrlComponent";
 import { useUser } from "@clerk/nextjs";
 

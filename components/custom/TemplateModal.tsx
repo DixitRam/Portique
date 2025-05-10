@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, ArrowLeft, Github, ZoomIn, ZoomOut } from 'lucide-react';
+import Image from 'next/image'; // Import Image from next/image
 import { Template } from '../../types/templateTypes';
 import { useState } from 'react';
 import { useUser } from '@clerk/nextjs'; // Import useUser hook for authentication
@@ -138,18 +139,45 @@ const TemplateModal: React.FC<TemplateModalProps> = ({ template, isOpen, onClose
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             >
-              <img
-                src={template.thumbnailPath}
-                alt={template.templateName}
-                className={`rounded-xl ${isZoomed ? 'w-auto h-auto max-w-none' : 'w-full object-contain max-h-[80vh]'}`}
+              {/* Replace img with Image component */}
+              <div 
+                className={`relative ${isZoomed ? 'w-auto h-auto' : 'w-full h-auto max-h-[80vh]'}`}
                 style={{ 
                   boxShadow: '0 0 30px rgba(0,0,0,0.5)',
                   cursor: isZoomed ? 'move' : 'pointer',
-                  transformOrigin: 'top center', // Set transform origin to top center
-
+                  transformOrigin: 'top center',
+                  overflow: 'hidden',
+                  borderRadius: '0.75rem', // rounded-xl equivalent
                 }}
                 onClick={isZoomed ? undefined : toggleZoom}
-              />
+              >
+                {isZoomed ? (
+                  // When zoomed, use an unoptimized image for better panning/zooming experience
+                  <Image
+                    src={template.thumbnailPath}
+                    alt={template.templateName}
+                    width={1920} // Arbitrary large size
+                    height={1080} // Arbitrary large size
+                    className="w-auto h-auto max-w-none"
+                    unoptimized={true} // Disable optimization when zoomed for full-quality view
+                    priority={true} // Load with priority
+                  />
+                ) : (
+                  // When not zoomed, use optimized image
+                  <div className="relative w-full h-screen">   {/* <--- THIS IS THE PARENT */}
+                  <Image
+                    src={template.thumbnailPath}
+                    alt={template.templateName}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
+                    priority
+                  />
+                </div>
+                
+                
+                )}
+              </div>
               
               {/* Template info overlay - only show when not zoomed */}
               {!isZoomed && (

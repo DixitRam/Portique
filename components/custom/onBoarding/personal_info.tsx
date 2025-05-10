@@ -1,28 +1,28 @@
 "use client"
 
-import { Form } from "@/components/ui/form"
-import { CiImageOn } from "react-icons/ci";
-import { Textarea } from "@/components/ui/textarea"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { BsPersonBoundingBox } from "react-icons/bs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { useUser } from "@clerk/nextjs"
+import { toast } from 'sonner'
+
+// UI Components
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { Form } from "@/components/ui/form"
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast } from 'sonner'
-import { useState } from 'react'
-import { auth } from '@clerk/nextjs/server';
-import { useUser } from "@clerk/nextjs"; // ✅ Add this line
+import { Textarea } from "@/components/ui/textarea"
+
+// Icons
+import { BsPersonBoundingBox } from "react-icons/bs";
 
 interface FormProps {
   onComplete: () => void;
@@ -129,12 +129,13 @@ export default function ProfileForm({ onComplete }: FormProps) {
       }
 
       toast.success('Profile saved successfully!');
+      toast.success('Profile saved successfully!');
       onComplete();
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to save profile. Please try again.');
+    } catch (error: Error | unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to save profile. Please try again.';
+      toast.error(errorMessage);
       console.error('Error details:', error);
     } finally {
-      setIsLoading(false);
     }
   };
 

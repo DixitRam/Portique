@@ -4,11 +4,17 @@ import connectDB from '@/lib/mongodb';
 import { Profile } from '@/lib/models/profile';
 import { auth } from '@clerk/nextjs/server';
 
+// Define RouteParams interface for consistent type usage
+interface RouteParams {
+  params: Promise<{ userId: string }>;
+}
+
 export async function GET(
   request: Request,
-  { params }: { params: { userId: string } }
+  { params }: RouteParams
 ) {
-  const { userId } = params;
+  const resolvedParams = await params;
+  const { userId } = resolvedParams;
 
   try {
     const { userId: authUserId } = await auth();
@@ -28,8 +34,9 @@ export async function GET(
 
     return NextResponse.json({ success: true, data: profile });
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
     return NextResponse.json(
-      { success: false, error: 'Error fetching profile' },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }
@@ -37,9 +44,10 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { userId: string } }
+  { params }: RouteParams
 ) {
-  const { userId } = params;
+  const resolvedParams = await params;
+  const { userId } = resolvedParams;
 
   try {
     const { userId: authUserId } = await auth();
@@ -82,9 +90,10 @@ export async function PUT(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { userId: string } }
+  { params }: RouteParams
 ) {
-  const { userId } = params;
+  const resolvedParams = await params;
+  const { userId } = resolvedParams;
 
   try {
     const { userId: authUserId } = await auth();

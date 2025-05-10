@@ -29,11 +29,27 @@ const fadeInUp = {
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.5 }
 };
-
+interface ProfileData {
+  username?: string;
+  template?: string;
+  name?: string;
+  profile_picture?: string;
+  location?: string;
+  cvURL?: string;
+  contact?: {
+    email?: string;
+    linkedin?: string;
+    github?: string;
+  };
+  tagline?: string;
+  about_me?: string;
+  skills?: string[];
+  skill?: string;
+}
 export default function ChangeUsernamePage({ userId }: { userId: string }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
-  const [profileData, setProfileData] = useState<any>(null);
+  const [profileData, setProfileData] = useState<ProfileData>({});
   const router = useRouter();
 
   const form = useForm<UsernameFormData>({
@@ -109,8 +125,9 @@ export default function ChangeUsernamePage({ userId }: { userId: string }) {
       toast.success('Username updated successfully!');
       setProfileData({...profileData, username: data.username});
       
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to update username');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+      toast.error(errorMessage || 'Failed to update username');
       console.error('Error details:', error);
     } finally {
       setIsLoading(false);

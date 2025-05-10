@@ -15,7 +15,8 @@ export async function POST(req: Request) {
     const { experiences } = await req.json();
     
     const savedExperience = await Experience.create(
-      experiences.map((experience: any) => ({
+
+      experiences.map((experience: Record<string, string>) => ({
         ...experience,
         userId
       }))

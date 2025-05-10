@@ -1,24 +1,18 @@
 'use client'
 import { Button } from "@/components/ui/button"
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs"
-import { Outfit } from 'next/font/google'
 import { FaLayerGroup } from "react-icons/fa";
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 import clsx from "clsx";
-import link from "next/link"
 import { AiTwotoneEdit } from "react-icons/ai";
-import { PiLinkBold } from "react-icons/pi";
 import { FaLink } from "react-icons/fa";
 import { ImEmbed2 } from "react-icons/im";
 
 
 
 
-const logoFont = Outfit({
-  weight: ['600'],
-  subsets: ['latin']
-})
+
 
 export default function Navbar() {
   const param = useParams();
@@ -34,7 +28,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-3">
           <FaLayerGroup className=" text-blue-700 text-2xl" />
 
-          <a href="/" className="text-xl font-bold text-slate-800">Portique</a>
+          <Link href="/" className="text-xl font-bold text-slate-800">Portique</Link>
         </div>            <div className="space-x-6 mr-3 flex md:flex-row items-center ">
           <Link href="/" className={
             clsx('text-black-500',

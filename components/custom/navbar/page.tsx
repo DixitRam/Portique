@@ -5,7 +5,6 @@ import { Outfit } from 'next/font/google'
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 import clsx from "clsx";
-import link from "next/link"
 
 const logoFont = Outfit({ 
     weight: ['600'],
@@ -22,7 +21,7 @@ export default  function Navbar() {
     return (
         <>
         <nav className="bg-white flex md:flex-row justify-between border-b-2 items-center h-16 px-4 mb-8">
-            <a href="/" className={ `${logoFont.className} text-2xl text-custom-primary` }>Craft Fol!o</a>
+            <Link href="/" className={ `${logoFont.className} text-2xl text-custom-primary` }>Craft Fol!o</Link>
             <div className="space-x-6 mr-3 flex md:flex-row items-center ">
               <Link href="/" className={
                clsx('text-black-500',

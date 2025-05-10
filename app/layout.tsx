@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import {
-  ClerkProvider,
-  SignInButton,
-  
-  SignedIn,
-  SignedOut,
-  UserButton
-} from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 
-import { neobrutalism, shadesOfPurple } from '@clerk/themes'
+import { shadesOfPurple } from '@clerk/themes'
 
 import { Toaster } from 'sonner';
 

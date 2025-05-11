@@ -102,10 +102,15 @@ export async function GET() {
                 height: 630,
             }
         )
-    } catch (e: any) {
-        console.log(`${e.message}`)
-        return new Response(`Failed to generate the image`, {
-            status: 500,
-        })
-    }
-} 
+    
+        } catch (e: unknown) {
+                if (e instanceof Error) {
+                            console.log(e.message)
+                                    } else {
+                                                console.log('Unknown error', e)
+                                                        }
+                                                                return new Response(`Failed to generate the image`, {
+                                                                            status: 500,
+                                                                                    })
+                                                                                        }
+                                                                                    }

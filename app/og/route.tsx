@@ -31,7 +31,7 @@ export async function GET() {
                 >
                     Portique
                 </h1>
-                <p
+                <i
                     style={{
                         fontSize: '1.5rem',
                         fontWeight: 400,
@@ -39,8 +39,8 @@ export async function GET() {
                         textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
                     }}
                 >
-                    Portfolio Builder
-                </p>
+                    Launch Your Portfolio in Minutes!
+                </i>
             </div>,
             {
                 width: 1200,
